@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
+import * as BooksAPI from './BooksAPI';
 
 class SearchPage extends Component {
-  //TODO: copied from contact app as example
-  // handleSubmit = e => {
-  //   e.preventDefault();
-  //   const values = serializeForm(e.target, { hash: true });
-  //   if (this.props.onCreateContact) this.props.onCreateContact(values);
-  // };
+  onSearchChange = event => {
+    console.log(`search change: ${event.target.value}`);
+    BooksAPI.search(event.target.value, 5)
+      .then(result => console.log(result))
+      .catch(e => {
+        console.log(`onSearchChange error:${e}`);
+        return e;
+      });
+  };
 
   render() {
     return (
@@ -27,7 +31,11 @@ class SearchPage extends Component {
                   However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
-            <input type="text" placeholder="Search by title or author" />
+            <input
+              type="text"
+              placeholder="Search by title or author"
+              onChange={this.onSearchChange}
+            />
           </div>
         </div>
         <div className="search-books-results">
