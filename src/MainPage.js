@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import BookCover from './BookCover';
+import BookShelfChanger from './BookShelfChanger';
 
 class MainPage extends Component {
   render() {
@@ -21,19 +22,7 @@ class MainPage extends Component {
                     <div className="book">
                       <div className="book-top">
                         <BookCover previewLink={books[0].previewLink} />
-                        <div className="book-shelf-changer">
-                          <select>
-                            <option value="none" disabled>
-                              Move to...
-                            </option>
-                            <option value="currentlyReading">
-                              Currently Reading
-                            </option>
-                            <option value="wantToRead">Want to Read</option>
-                            <option value="read">Read</option>
-                            <option value="none">None</option>
-                          </select>
-                        </div>
+                        <BookShelfChanger />
                       </div>
                       <div className="book-title">To Kill a Mockingbird</div>
                       <div className="book-authors">Harper Lee</div>
@@ -43,20 +32,7 @@ class MainPage extends Component {
                     <div className="book">
                       <div className="book-top">
                         <BookCover previewLink={books[1].previewLink} />
-
-                        <div className="book-shelf-changer">
-                          <select>
-                            <option value="none" disabled>
-                              Move to...
-                            </option>
-                            <option value="currentlyReading">
-                              Currently Reading
-                            </option>
-                            <option value="wantToRead">Want to Read</option>
-                            <option value="read">Read</option>
-                            <option value="none">None</option>
-                          </select>
-                        </div>
+                        <BookShelfChanger />
                       </div>
                       <div className="book-title">Ender's Game</div>
                       <div className="book-authors">Orson Scott Card</div>
@@ -73,19 +49,7 @@ class MainPage extends Component {
                     <div className="book">
                       <div className="book-top">
                         <BookCover previewLink={books[2].previewLink} />
-                        <div className="book-shelf-changer">
-                          <select>
-                            <option value="none" disabled>
-                              Move to...
-                            </option>
-                            <option value="currentlyReading">
-                              Currently Reading
-                            </option>
-                            <option value="wantToRead">Want to Read</option>
-                            <option value="read">Read</option>
-                            <option value="none">None</option>
-                          </select>
-                        </div>
+                        <BookShelfChanger />
                       </div>
                       <div className="book-title">1776</div>
                       <div className="book-authors">David McCullough</div>
@@ -95,19 +59,7 @@ class MainPage extends Component {
                     <div className="book">
                       <div className="book-top">
                         <BookCover previewLink={books[3].previewLink} />
-                        <div className="book-shelf-changer">
-                          <select>
-                            <option value="none" disabled>
-                              Move to...
-                            </option>
-                            <option value="currentlyReading">
-                              Currently Reading
-                            </option>
-                            <option value="wantToRead">Want to Read</option>
-                            <option value="read">Read</option>
-                            <option value="none">None</option>
-                          </select>
-                        </div>
+                        <BookShelfChanger />
                       </div>
                       <div className="book-title">
                         Harry Potter and the Sorcerer's Stone
@@ -126,19 +78,7 @@ class MainPage extends Component {
                     <div className="book">
                       <div className="book-top">
                         <BookCover previewLink={books[4].previewLink} />
-                        <div className="book-shelf-changer">
-                          <select>
-                            <option value="none" disabled>
-                              Move to...
-                            </option>
-                            <option value="currentlyReading">
-                              Currently Reading
-                            </option>
-                            <option value="wantToRead">Want to Read</option>
-                            <option value="read">Read</option>
-                            <option value="none">None</option>
-                          </select>
-                        </div>
+                        <BookShelfChanger />
                       </div>
                       <div className="book-title">The Hobbit</div>
                       <div className="book-authors">J.R.R. Tolkien</div>
@@ -148,19 +88,7 @@ class MainPage extends Component {
                     <div className="book">
                       <div className="book-top">
                         <BookCover previewLink={books[5].previewLink} />
-                        <div className="book-shelf-changer">
-                          <select>
-                            <option value="none" disabled>
-                              Move to...
-                            </option>
-                            <option value="currentlyReading">
-                              Currently Reading
-                            </option>
-                            <option value="wantToRead">Want to Read</option>
-                            <option value="read">Read</option>
-                            <option value="none">None</option>
-                          </select>
-                        </div>
+                        <BookShelfChanger />
                       </div>
                       <div className="book-title">
                         Oh, the Places You'll Go!
@@ -172,19 +100,7 @@ class MainPage extends Component {
                     <div className="book">
                       <div className="book-top">
                         <BookCover previewLink={books[6].previewLink} />
-                        <div className="book-shelf-changer">
-                          <select>
-                            <option value="none" disabled>
-                              Move to...
-                            </option>
-                            <option value="currentlyReading">
-                              Currently Reading
-                            </option>
-                            <option value="wantToRead">Want to Read</option>
-                            <option value="read">Read</option>
-                            <option value="none">None</option>
-                          </select>
-                        </div>
+                        <BookShelfChanger />
                       </div>
                       <div className="book-title">
                         The Adventures of Tom Sawyer
