@@ -1,19 +1,25 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import * as BooksAPI from './BooksAPI';
+import PropTypes from 'prop-types';
+import Book from './Book';
 
 class SearchPage extends Component {
+  static propTypes = {
+    moveBookToShelf: PropTypes.func.isRequired,
+    loadSearchResults: PropTypes.func.isRequired,
+    searchResults: PropTypes.array.isRequired,
+    lastQuery: PropTypes.string.isRequired,
+  };
+
   onSearchChange = event => {
-    console.log(`search change: ${event.target.value}`);
-    BooksAPI.search(event.target.value, 5)
-      .then(result => console.log(result))
-      .catch(e => {
-        console.log(`onSearchChange error:${e}`);
-        return e;
-      });
+    const { loadSearchResults } = this.props;
+
+    loadSearchResults(event.target.value);
   };
 
   render() {
+    const { moveBookToShelf, searchResults, lastQuery } = this.props;
+
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -33,11 +39,18 @@ class SearchPage extends Component {
               type="text"
               placeholder="Search by title or author"
               onChange={this.onSearchChange}
+              value={lastQuery}
             />
           </div>
         </div>
         <div className="search-books-results">
-          <ol className="books-grid" />
+          <ol className="books-grid">
+            {' '}{searchResults.map(book =>
+              <li key={book.id}>
+                <Book book={book} moveBookToShelf={moveBookToShelf} />
+              </li>
+            )}
+          </ol>
         </div>
       </div>
     );

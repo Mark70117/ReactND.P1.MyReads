@@ -9,6 +9,21 @@ import './App.css';
 class BooksApp extends React.Component {
   state = {
     books: [],
+    searchResults: [],
+    lastQuery: '',
+  };
+
+  loadSearchResults = query => {
+    BooksAPI.search(query, 5).then(result => {
+      if (result && !result.error) {
+        this.setState({
+          searchResults: result.sort(this.bookSort),
+          lastQuery: query,
+        });
+      } else {
+        this.setState({ searchResults: [], lastQuery: query });
+      }
+    });
   };
 
   bookSort = (a, b) => a.title.localeCompare(b.title);
@@ -16,6 +31,12 @@ class BooksApp extends React.Component {
   localMoveBookToShelf = (changingBook, shelf) => {
     this.setState(prevState => ({
       books: prevState.books
+        .map(
+          aBook =>
+            aBook.id === changingBook.id ? { ...changingBook, shelf } : aBook
+        )
+        .sort(this.bookSort),
+      searchResults: prevState.searchResults
         .map(
           aBook =>
             aBook.id === changingBook.id ? { ...changingBook, shelf } : aBook
@@ -34,8 +55,6 @@ class BooksApp extends React.Component {
 
     BooksAPI.update(changingBook, shelf)
       .then(response => {
-        console.log('response:');
-        console.log(response);
         BooksAPI.getAll().then(books => {
           this.setState({
             books: books.sort(this.bookSort),
@@ -72,7 +91,16 @@ class BooksApp extends React.Component {
           render={() =>
             <MainPage books={books} moveBookToShelf={this.moveBookToShelf} />}
         />
-        <Route path="/search" component={() => <SearchPage />} />
+        <Route
+          path="/search"
+          render={() =>
+            <SearchPage
+              moveBookToShelf={this.moveBookToShelf}
+              loadSearchResults={this.loadSearchResults}
+              searchResults={this.state.searchResults}
+              lastQuery={this.state.lastQuery}
+            />}
+        />
       </div>
     );
   }
