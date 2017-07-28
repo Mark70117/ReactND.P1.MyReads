@@ -11,18 +11,48 @@ class BooksApp extends React.Component {
     books: [],
   };
 
-  moveBookToShelf = (changingBook, shelf) => {
+  bookSort = (a, b) => a.title.localeCompare(b.title);
+
+  localMoveBookToShelf = (changingBook, shelf) => {
     this.setState(prevState => ({
-      books: prevState.books.map(
-        aBook =>
-          aBook.id === changingBook.id ? { ...changingBook, shelf } : aBook
-      ),
+      books: prevState.books
+        .map(
+          aBook =>
+            aBook.id === changingBook.id ? { ...changingBook, shelf } : aBook
+        )
+        .sort(this.bookSort),
     }));
+  };
+
+  moveBookToShelf = (changingBook, shelf) => {
+    this.localMoveBookToShelf(changingBook, shelf);
+
+    BooksAPI.update(changingBook, shelf)
+      .then(response => {
+        console.log('response:');
+        console.log(response);
+        BooksAPI.getAll().then(books => {
+          this.setState({
+            books: books.sort(this.bookSort),
+          });
+        });
+      })
+      .catch(e => {
+        console.log('error:');
+        console.log(e);
+        BooksAPI.getAll().then(books => {
+          this.setState({
+            books: books.sort(this.bookSort),
+          });
+        });
+      });
   };
 
   componentDidMount() {
     BooksAPI.getAll().then(books => {
-      this.setState({ books });
+      this.setState({
+        books: books.sort(this.bookSort),
+      });
     });
   }
 
