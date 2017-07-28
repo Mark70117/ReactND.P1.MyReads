@@ -4,13 +4,16 @@ import BookCover from './BookCover';
 import BookShelfChanger from './BookShelfChanger';
 
 const Book = props => {
-  const { book } = props;
+  const { book, moveBookToShelf } = props;
 
   return (
     <div className="book">
       <div className="book-top">
         <BookCover imageLink_thumbnail={book.imageLinks.thumbnail} />
-        <BookShelfChanger />
+        <BookShelfChanger
+          shelf={book.shelf}
+          moveToShelf={shelf => moveBookToShelf(book, shelf)}
+        />
       </div>
       <div className="book-title">
         {book.title}
@@ -24,6 +27,7 @@ const Book = props => {
 
 Book.propTypes = {
   book: PropTypes.object.isRequired,
+  moveBookToShelf: PropTypes.func.isRequired,
 };
 
 export default Book;

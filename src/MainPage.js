@@ -17,7 +17,7 @@ const readFilter = (element, index, array) => {
 
 class MainPage extends Component {
   render() {
-    const { books } = this.props;
+    const { books, moveBookToShelf } = this.props;
 
     return (
       <div className="list-books">
@@ -29,12 +29,18 @@ class MainPage extends Component {
             <BookShelf
               title="Currently Reading"
               books={books.filter(currentlyReadingFilter)}
+              moveBookToShelf={moveBookToShelf}
             />
             <BookShelf
               title="Want to Read"
               books={books.filter(wantToReadFilter)}
+              moveBookToShelf={moveBookToShelf}
             />
-            <BookShelf title="Read" books={books.filter(readFilter)} />
+            <BookShelf
+              title="Read"
+              books={books.filter(readFilter)}
+              moveBookToShelf={moveBookToShelf}
+            />
           </div>
         </div>
         <div className="open-search">
@@ -45,5 +51,8 @@ class MainPage extends Component {
   }
 }
 
-MainPage.propTypes = { books: PropTypes.array.isRequired };
+MainPage.propTypes = {
+  books: PropTypes.array.isRequired,
+  moveBookToShelf: PropTypes.func.isRequired,
+};
 export default MainPage;
