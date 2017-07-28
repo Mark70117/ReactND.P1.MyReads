@@ -24,6 +24,11 @@ class BooksApp extends React.Component {
     }));
   };
 
+  // decided agains doing a lot of computation and just call getAll to keep in sync.
+  //   local change will be quick for user
+  //   getAll should change nothing, React will be smart with the virtualDOM
+  //     so user will not notice all the network calls
+  //   what if getAll fails?
   moveBookToShelf = (changingBook, shelf) => {
     this.localMoveBookToShelf(changingBook, shelf);
 
