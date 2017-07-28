@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Book from './Book';
 import BookCover from './BookCover';
 import BookShelfChanger from './BookShelfChanger';
 
@@ -19,24 +20,10 @@ class MainPage extends Component {
               <div className="bookshelf-books">
                 <ol className="books-grid">
                   <li>
-                    <div className="book">
-                      <div className="book-top">
-                        <BookCover previewLink={books[0].previewLink} />
-                        <BookShelfChanger />
-                      </div>
-                      <div className="book-title">To Kill a Mockingbird</div>
-                      <div className="book-authors">Harper Lee</div>
-                    </div>
+                    <Book book={books[0]} />
                   </li>
                   <li>
-                    <div className="book">
-                      <div className="book-top">
-                        <BookCover previewLink={books[1].previewLink} />
-                        <BookShelfChanger />
-                      </div>
-                      <div className="book-title">Ender's Game</div>
-                      <div className="book-authors">Orson Scott Card</div>
-                    </div>
+                    <Book book={books[1]} />
                   </li>
                 </ol>
               </div>
@@ -46,26 +33,10 @@ class MainPage extends Component {
               <div className="bookshelf-books">
                 <ol className="books-grid">
                   <li>
-                    <div className="book">
-                      <div className="book-top">
-                        <BookCover previewLink={books[2].previewLink} />
-                        <BookShelfChanger />
-                      </div>
-                      <div className="book-title">1776</div>
-                      <div className="book-authors">David McCullough</div>
-                    </div>
+                    <Book book={books[2]} />
                   </li>
                   <li>
-                    <div className="book">
-                      <div className="book-top">
-                        <BookCover previewLink={books[3].previewLink} />
-                        <BookShelfChanger />
-                      </div>
-                      <div className="book-title">
-                        Harry Potter and the Sorcerer's Stone
-                      </div>
-                      <div className="book-authors">J.K. Rowling</div>
-                    </div>
+                    <Book book={books[3]} />
                   </li>
                 </ol>
               </div>
@@ -75,38 +46,13 @@ class MainPage extends Component {
               <div className="bookshelf-books">
                 <ol className="books-grid">
                   <li>
-                    <div className="book">
-                      <div className="book-top">
-                        <BookCover previewLink={books[4].previewLink} />
-                        <BookShelfChanger />
-                      </div>
-                      <div className="book-title">The Hobbit</div>
-                      <div className="book-authors">J.R.R. Tolkien</div>
-                    </div>
+                    <Book book={books[4]} />
                   </li>
                   <li>
-                    <div className="book">
-                      <div className="book-top">
-                        <BookCover previewLink={books[5].previewLink} />
-                        <BookShelfChanger />
-                      </div>
-                      <div className="book-title">
-                        Oh, the Places You'll Go!
-                      </div>
-                      <div className="book-authors">Seuss</div>
-                    </div>
+                    <Book book={books[5]} />
                   </li>
                   <li>
-                    <div className="book">
-                      <div className="book-top">
-                        <BookCover previewLink={books[6].previewLink} />
-                        <BookShelfChanger />
-                      </div>
-                      <div className="book-title">
-                        The Adventures of Tom Sawyer
-                      </div>
-                      <div className="book-authors">Mark Twain</div>
-                    </div>
+                    <Book book={books[6]} />
                   </li>
                 </ol>
               </div>
