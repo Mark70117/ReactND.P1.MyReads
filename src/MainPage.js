@@ -1,6 +1,18 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Book from './Book';
+import BookShelf from './BookShelf';
+
+const wantToReadFilter = (element, index, array) => {
+  return index >= 2 && index < 4; //TODO
+};
+
+const currentlyReadingFilter = (element, index, array) => {
+  return index < 2; //TODO
+};
+
+const readFilter = (element, index, array) => {
+  return index >= 4; //TODO
+};
 
 class MainPage extends Component {
   render() {
@@ -13,48 +25,15 @@ class MainPage extends Component {
         </div>
         <div className="list-books-content">
           <div>
-            <div className="bookshelf">
-              <h2 className="bookshelf-title">Currently Reading</h2>
-              <div className="bookshelf-books">
-                <ol className="books-grid">
-                  <li>
-                    <Book book={books[0]} />
-                  </li>
-                  <li>
-                    <Book book={books[1]} />
-                  </li>
-                </ol>
-              </div>
-            </div>
-            <div className="bookshelf">
-              <h2 className="bookshelf-title">Want to Read</h2>
-              <div className="bookshelf-books">
-                <ol className="books-grid">
-                  <li>
-                    <Book book={books[2]} />
-                  </li>
-                  <li>
-                    <Book book={books[3]} />
-                  </li>
-                </ol>
-              </div>
-            </div>
-            <div className="bookshelf">
-              <h2 className="bookshelf-title">Read</h2>
-              <div className="bookshelf-books">
-                <ol className="books-grid">
-                  <li>
-                    <Book book={books[4]} />
-                  </li>
-                  <li>
-                    <Book book={books[5]} />
-                  </li>
-                  <li>
-                    <Book book={books[6]} />
-                  </li>
-                </ol>
-              </div>
-            </div>
+            <BookShelf
+              title="Currently Reading"
+              books={books.filter(currentlyReadingFilter)}
+            />
+            <BookShelf
+              title="Want to Read"
+              books={books.filter(wantToReadFilter)}
+            />
+            <BookShelf title="Read" books={books.filter(readFilter)} />
           </div>
         </div>
         <div className="open-search">
