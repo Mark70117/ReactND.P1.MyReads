@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Book from './Book';
-import BookCover from './BookCover';
-import BookShelfChanger from './BookShelfChanger';
 
 class MainPage extends Component {
   render() {
