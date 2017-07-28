@@ -3,15 +3,15 @@ import { Link } from 'react-router-dom';
 import BookShelf from './BookShelf';
 
 const wantToReadFilter = (element, index, array) => {
-  return index >= 2 && index < 4; //TODO
+  return element.shelf && element.shelf === 'wantToRead';
 };
 
 const currentlyReadingFilter = (element, index, array) => {
-  return index < 2; //TODO
+  return element.shelf && element.shelf === 'currentlyReading';
 };
 
 const readFilter = (element, index, array) => {
-  return index >= 4; //TODO
+  return element.shelf && element.shelf === 'read';
 };
 
 class MainPage extends Component {

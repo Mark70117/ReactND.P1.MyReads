@@ -1,9 +1,9 @@
 import React from 'react';
 
 const BookCover = props => {
-  const { previewLink } = props;
+  const { imageLink_thumbnail } = props;
+  const backgroundImage = `url("${imageLink_thumbnail}")`;
 
-  const backgroundImage = `url("${previewLink}&img=1&zoom=1")`;
   return (
     <div
       className="book-cover"

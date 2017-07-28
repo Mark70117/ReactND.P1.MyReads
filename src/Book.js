@@ -8,7 +8,7 @@ const Book = props => {
   return (
     <div className="book">
       <div className="book-top">
-        <BookCover previewLink={book.previewLink} />
+        <BookCover imageLink_thumbnail={book.imageLinks.thumbnail} />
         <BookShelfChanger />
       </div>
       <div className="book-title">
