@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const BookCover = props => {
   const { imageLink_thumbnail } = props;
@@ -14,6 +15,10 @@ const BookCover = props => {
       }}
     />
   );
+};
+
+BookCover.propTypes = {
+  imageLink_thumbnail: PropTypes.string.isRequired,
 };
 
 export default BookCover;

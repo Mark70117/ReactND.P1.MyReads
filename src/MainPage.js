@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import BookShelf from './BookShelf';
 
 const wantToReadFilter = (element, index, array) => {
@@ -44,4 +45,5 @@ class MainPage extends Component {
   }
 }
 
+MainPage.propTypes = { books: PropTypes.array.isRequired };
 export default MainPage;
