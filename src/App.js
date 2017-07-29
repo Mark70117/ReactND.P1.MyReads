@@ -18,7 +18,8 @@ class BooksApp extends React.Component {
   //  return as none, other show up with a value of shelf set
   //  but should be 'none'
   improveResult = book => {
-    const idx = this.state.books[book.id];
+    const b = this.state.books[book.id];
+    const idx = b ? b.id : false;
     if (idx) {
       return { ...book, shelf: this.state.books[idx].shelf };
     } else {
@@ -28,7 +29,7 @@ class BooksApp extends React.Component {
 
   loadSearchResults = query => {
     this.setState({ lastQuery: query });
-    BooksAPI.search(query, 5).then(result => {
+    BooksAPI.search(query, 3).then(result => {
       if (result && !result.error) {
         let betterResults = result.map(this.improveResult);
         this.setState({
