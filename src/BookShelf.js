@@ -4,7 +4,9 @@ import Book from './Book';
 
 const BookShelf = props => {
   const { title, books, moveBookToShelf } = props;
-
+  console.log('[BookShelf');
+  console.log(books);
+  console.log(']BookShelf');
   return (
     <div className="bookshelf">
       <h2 className="bookshelf-title">
@@ -12,9 +14,9 @@ const BookShelf = props => {
       </h2>
       <div className="bookshelf-books">
         <ol className="books-grid">
-          {books.map(book =>
-            <li key={book.id}>
-              <Book book={book} moveBookToShelf={moveBookToShelf} />
+          {Object.keys(books).map(id =>
+            <li key={id}>
+              <Book book={books[id]} moveBookToShelf={moveBookToShelf} />
             </li>
           )}
         </ol>
@@ -25,7 +27,7 @@ const BookShelf = props => {
 
 BookShelf.propTypes = {
   title: PropTypes.string.isRequired,
-  books: PropTypes.array.isRequired,
+  books: PropTypes.object.isRequired,
   moveBookToShelf: PropTypes.func.isRequired,
 };
 

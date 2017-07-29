@@ -3,22 +3,19 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import BookShelf from './BookShelf';
 
-const wantToReadFilter = (element, index, array) => {
-  return element.shelf && element.shelf === 'wantToRead';
-};
-
-const currentlyReadingFilter = (element, index, array) => {
-  return element.shelf && element.shelf === 'currentlyReading';
-};
-
-const readFilter = (element, index, array) => {
-  return element.shelf && element.shelf === 'read';
-};
-
 class MainPage extends Component {
+  gFilter = (str, total, num) => (total, num) =>
+    this.props.books[num].shelf === str
+      ? { ...total, [num]: { ...this.props.books[num] } }
+      : total;
+
+  readFilter = this.gFilter('read');
+  wantToReadFilter = this.gFilter('wantToRead');
+  currentlyReadingFilter = this.gFilter('currentlyReading');
+
   render() {
     const { books, moveBookToShelf } = this.props;
-
+    console.log(books);
     return (
       <div className="list-books">
         <div className="list-books-title">
@@ -28,17 +25,17 @@ class MainPage extends Component {
           <div>
             <BookShelf
               title="Currently Reading"
-              books={books.filter(currentlyReadingFilter)}
+              books={Object.keys(books).reduce(this.currentlyReadingFilter, {})}
               moveBookToShelf={moveBookToShelf}
             />
             <BookShelf
               title="Want to Read"
-              books={books.filter(wantToReadFilter)}
+              books={Object.keys(books).reduce(this.wantToReadFilter, {})}
               moveBookToShelf={moveBookToShelf}
             />
             <BookShelf
               title="Read"
-              books={books.filter(readFilter)}
+              books={Object.keys(books).reduce(this.readFilter, {})}
               moveBookToShelf={moveBookToShelf}
             />
           </div>
@@ -52,7 +49,7 @@ class MainPage extends Component {
 }
 
 MainPage.propTypes = {
-  books: PropTypes.array.isRequired,
+  books: PropTypes.object.isRequired,
   moveBookToShelf: PropTypes.func.isRequired,
 };
 export default MainPage;

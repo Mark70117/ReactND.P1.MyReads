@@ -8,10 +8,9 @@ import './App.css';
 
 class BooksApp extends React.Component {
   state = {
-    books: [],
+    books: {},
     searchResults: [],
     lastQuery: '',
-    lookupBooks: {},
   };
 
   // BooksAPI returns books with shelf values that do not
@@ -19,7 +18,7 @@ class BooksApp extends React.Component {
   //  return as none, other show up with a value of shelf set
   //  but should be 'none'
   improveResult = book => {
-    const idx = this.state.lookupBooks[book.id];
+    const idx = this.state.books[book.id];
     if (idx) {
       return { ...book, shelf: this.state.books[idx].shelf };
     } else {
@@ -59,19 +58,18 @@ class BooksApp extends React.Component {
         .sort(this.bookSort),
     }));
   };
+  makeIdKey = (total, element) => {
+    return element.id ? { ...total, [element.id]: element } : total;
+  };
 
   getAllToState = () => {
     BooksAPI.getAll().then(books => {
-      var lookupBooks = {};
-      books.forEach((element, index) => {
-        lookupBooks[element.id] = index;
-      });
+      const booksDict = books.reduce(this.makeIdKey, {});
       console.log('[getAllToState');
-      console.log(lookupBooks);
+      console.log(booksDict);
       console.log(']getAllToState');
       this.setState({
-        books: books.sort(this.bookSort),
-        lookupBooks,
+        books: booksDict,
       });
     });
   };
