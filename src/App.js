@@ -43,14 +43,22 @@ class BooksApp extends React.Component {
 
   bookSort = (a, b) => a.title.localeCompare(b.title);
 
+  makeIdKey = (total, element) => {
+    return element.id ? { ...total, [element.id]: element } : total;
+  };
+
   localMoveBookToShelf = (changingBook, shelf) => {
+    const moveBookClosure = id => {
+      const f_id =
+        id === changingBook.id
+          ? { ...this.state.books[changingBook.id], shelf }
+          : this.state.books[id];
+      return f_id;
+    };
     this.setState(prevState => ({
-      books: prevState.books
-        .map(
-          aBook =>
-            aBook.id === changingBook.id ? { ...changingBook, shelf } : aBook
-        )
-        .sort(this.bookSort),
+      books: Object.keys(prevState.books)
+        .map(moveBookClosure)
+        .reduce(this.makeIdKey, {}),
       searchResults: prevState.searchResults
         .map(
           aBook =>
@@ -59,36 +67,40 @@ class BooksApp extends React.Component {
         .sort(this.bookSort),
     }));
   };
-  makeIdKey = (total, element) => {
-    return element.id ? { ...total, [element.id]: element } : total;
-  };
 
   getAllToState = () => {
     BooksAPI.getAll().then(books => {
       const booksDict = books.reduce(this.makeIdKey, {});
-      console.log('[getAllToState');
-      console.log(booksDict);
-      console.log(']getAllToState');
       this.setState({
         books: booksDict,
       });
     });
   };
 
-  // decided agains doing a lot of computation and just call getAll to keep in sync.
-  //   local change will be quick for user
-  //   getAll should change nothing, React will be smart with the virtualDOM
-  //     so user will not notice all the network calls
-  //   what if getAll fails?
   moveBookToShelf = (changingBook, shelf) => {
     this.localMoveBookToShelf(changingBook, shelf);
 
+    const updateConsistent = (bookArray, shelf) => {
+      return bookArray.reduce(
+        (pred, bookId) => pred && this.state.books[bookId].shelf === shelf,
+        true
+      );
+    };
+
+    const updateResponseConsistent = response =>
+      updateConsistent(response.currentlyReading, 'currentlyReading') &&
+      updateConsistent(response.wantToRead, 'wantToRead') &&
+      updateConsistent(response.read, 'read');
+
     BooksAPI.update(changingBook, shelf)
       .then(response => {
-        this.getAllToState();
+        if (!updateResponseConsistent(response)) {
+          console.log('State Out of Sync!');
+          this.getAllToState();
+        }
       })
       .catch(e => {
-        console.log('error:');
+        console.log('moveBookToShelf update error:');
         console.log(e);
         this.getAllToState();
       });
@@ -107,7 +119,11 @@ class BooksApp extends React.Component {
           exact
           path="/"
           render={() =>
-            <MainPage books={books} moveBookToShelf={this.moveBookToShelf} />}
+            <MainPage
+              books={books}
+              bookSort={this.bookSort}
+              moveBookToShelf={this.moveBookToShelf}
+            />}
         />
         <Route
           path="/search"

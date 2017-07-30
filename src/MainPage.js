@@ -14,8 +14,8 @@ class MainPage extends Component {
   currentlyReadingFilter = this.gFilter('currentlyReading');
 
   render() {
-    const { books, moveBookToShelf } = this.props;
-    console.log(books);
+    const { books, bookSort, moveBookToShelf } = this.props;
+
     return (
       <div className="list-books">
         <div className="list-books-title">
@@ -26,16 +26,19 @@ class MainPage extends Component {
             <BookShelf
               title="Currently Reading"
               books={Object.keys(books).reduce(this.currentlyReadingFilter, {})}
+              bookSort={bookSort}
               moveBookToShelf={moveBookToShelf}
             />
             <BookShelf
               title="Want to Read"
               books={Object.keys(books).reduce(this.wantToReadFilter, {})}
+              bookSort={bookSort}
               moveBookToShelf={moveBookToShelf}
             />
             <BookShelf
               title="Read"
               books={Object.keys(books).reduce(this.readFilter, {})}
+              bookSort={bookSort}
               moveBookToShelf={moveBookToShelf}
             />
           </div>
@@ -51,5 +54,6 @@ class MainPage extends Component {
 MainPage.propTypes = {
   books: PropTypes.object.isRequired,
   moveBookToShelf: PropTypes.func.isRequired,
+  bookSort: PropTypes.func.isRequired,
 };
 export default MainPage;
