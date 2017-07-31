@@ -3,6 +3,12 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import BookShelf from './BookShelf';
 
+// MainPage component uses props:
+// books: dictionary of books on shelves, book.id is key
+// moveBookToShelf: callback function pass thru prop
+//   on way to Book component
+// bookSort: callback function pass thru prop
+//   on way to BookShelf component
 class MainPage extends Component {
   gFilter = (str, total, num) => (total, num) =>
     this.props.books[num].shelf === str

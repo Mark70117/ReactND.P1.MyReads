@@ -3,12 +3,20 @@ import PropTypes from 'prop-types';
 import BookCover from './BookCover';
 import BookShelfChanger from './BookShelfChanger';
 
+// Book component uses props:
+// book: book object returned from API
+// moveBookToShelf: callback function bound with
+//   local variable in function passed to
+//   BookShelfChanger component
 const Book = props => {
   const { book, moveBookToShelf } = props;
+
+  // some books returned by search API do not have thumbnails
   const imageLink_thumbnail =
     book.imageLinks && book.imageLinks.thumbnail
       ? book.imageLinks.thumbnail
       : '';
+
   return (
     <div className="book">
       <div className="book-top">

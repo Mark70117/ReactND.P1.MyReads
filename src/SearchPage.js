@@ -3,6 +3,13 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Book from './Book';
 
+// SearchPage component uses props:
+// moveBookToShelf: callback function pass thru prop
+//   on way to Book component
+// loadSearchResults: callback function to contact API
+//   update state with results
+// searchResults: array keeping results of last search
+// lastQuery: string keeping the last query
 class SearchPage extends Component {
   static propTypes = {
     moveBookToShelf: PropTypes.func.isRequired,
@@ -45,7 +52,7 @@ class SearchPage extends Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {' '}{searchResults.map(book =>
+            {searchResults.map(book =>
               <li key={book.id}>
                 <Book book={book} moveBookToShelf={moveBookToShelf} />
               </li>

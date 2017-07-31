@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+// BookShelfChanger component uses props:
+// shelf: string of book current shelf
+// moveToShelf: callback function used
+//   when 'select' value changes
 class BookShelfChanger extends Component {
   static propTypes = {
     shelf: PropTypes.string.isRequired,
